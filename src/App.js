@@ -4,7 +4,8 @@ import './App.css';
 
 class MovieListItem extends Component {
   render() {
-    return (<div className="movie-wrapper">
+    return (
+    <div className="movie-wrapper">
       {this.props.name} {this.props.actors} {this.props.rating}
     </div>);
   }
@@ -17,7 +18,8 @@ class MovieList extends Component {
         name={movie.name} actors={movie.actors}
         rating={movie.rating} />
     );
-    return (<div className="movie-list">
+    return (
+    <div className="movie-list">
       {moviesList}
     </div>);
   }
