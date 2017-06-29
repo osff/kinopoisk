@@ -14,14 +14,14 @@ class MovieListItem extends Component {
 
 class MovieList extends Component {
   render() {
-    const moviesList = this.props.movies.map((movie) =>
+    const moviesListItems = this.props.movies.map((movie) =>
       <MovieListItem key={movie.id}
         name={movie.name} actors={movie.actors}
         rating={movie.rating} />
     );
     return (
       <div className="movie-list">
-        {moviesList}
+        {moviesListItems}
       </div>
     );
   }
