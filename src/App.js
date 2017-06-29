@@ -5,9 +5,10 @@ import './App.css';
 class MovieListItem extends Component {
   render() {
     return (
-    <div className="movie-wrapper">
-      {this.props.name} {this.props.actors} {this.props.rating}
-    </div>);
+      <div className="movie-wrapper">
+        {this.props.name} {this.props.actors} {this.props.rating}
+      </div>
+    );
   }
 }
 
@@ -19,9 +20,10 @@ class MovieList extends Component {
         rating={movie.rating} />
     );
     return (
-    <div className="movie-list">
-      {moviesList}
-    </div>);
+      <div className="movie-list">
+        {moviesList}
+      </div>
+    );
   }
 }
 
