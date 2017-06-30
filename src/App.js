@@ -91,6 +91,7 @@ class App extends Component {
 }
 
 export default App;
+export {MovieListItemRatingDropdown};
 
 const styles = StyleSheet.create({
     movie_wrapper: {
