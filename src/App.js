@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import PropTypes from 'prop-types';
 import logo from './logo.svg';
 import './App.css';
 
@@ -28,6 +29,11 @@ class MovieListItemRatingDropdown extends Component {
   }
 }
 
+MovieListItemRatingDropdown.propTypes = {
+  value: PropTypes.number
+};
+
+
 class MovieListItem extends Component {
   render() {
     const actors = this.props.actors.join(", ");
@@ -49,6 +55,15 @@ class MovieListItem extends Component {
   }
 }
 
+MovieListItem.propTypes = {
+  actors: PropTypes.array,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  year: PropTypes.string,
+  rating: PropTypes.number,
+};
+
+
 class MovieList extends Component {
   render() {
     const moviesListItems = this.props.movies.map((movie) =>
@@ -68,6 +83,11 @@ class MovieList extends Component {
     );
   }
 }
+
+MovieList.propTypes = {
+  movies: PropTypes.array
+};
+
 
 class App extends Component {
   render() {
@@ -89,6 +109,7 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;
 export {MovieListItemRatingDropdown};

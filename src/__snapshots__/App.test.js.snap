@@ -3,7 +3,7 @@
 exports[`Test MovieListItemRatingDropdown component render 1`] = `
 <select
   onChange={[Function]}
-  value="4"
+  value={4}
 >
   <option
     value="1"

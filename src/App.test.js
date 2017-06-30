@@ -11,7 +11,7 @@ it('renders without crashing', () => {
 
 test('Test MovieListItemRatingDropdown component render', () => {
   const component = renderer.create(
-    <MovieListItemRatingDropdown value="4" />
+    <MovieListItemRatingDropdown value={4} />
   );
   let tree = component.toJSON();
   expect(tree).toMatchSnapshot();
