@@ -4,13 +4,20 @@ import logo from './logo.svg';
 import './App.css';
 
 class MovieListItemRatingDropdown extends Component {
-  handleChange() {
+  constructor(props) {
+    super(props);
+    this.state = {value: this.props.value};
 
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
   }
 
   render() {
     return (
-      <select value={this.props.value} onChange={this.handleChange}>
+      <select value={this.state.value} onChange={this.handleChange}>
        <option value="1">1</option>
        <option value="2">2</option>
        <option value="3">3</option>
@@ -25,11 +32,13 @@ class MovieListItem extends Component {
   render() {
     const actors = this.props.actors.join(", ");
     return (
-      <div className={css(styles.movieWrapper)}>
+      <div className={css(styles.movie_wrapper)}>
         <div>
-          <img className={css(styles.movieImage)} src={this.props.image} />
+          <img className={css(styles.movie_image)}
+            src={this.props.image}
+            alt={this.props.name} />
         </div>
-        <div className={css(styles.movieDescription)}>
+        <div className={css(styles.movie_description)}>
           <h1>{this.props.name} ({this.props.year})</h1>
           Actors: {actors} <br />
           Rating: <MovieListItemRatingDropdown value={this.props.rating} />
@@ -53,7 +62,7 @@ class MovieList extends Component {
       />
     );
     return (
-      <div className="movie-list">
+      <div className="movie_list">
         {moviesListItems}
       </div>
     );
@@ -84,19 +93,19 @@ class App extends Component {
 export default App;
 
 const styles = StyleSheet.create({
-    movieWrapper: {
+    movie_wrapper: {
         display: 'flex',
         justifyContent: 'center',
         width: "80vw",
         margin: "1em auto"
     },
 
-    movieDescription: {
+    movie_description: {
         padding: '1em 0 0 2em',
         width: "50%"
     },
 
-    movieImage: {
+    movie_image: {
       width: "70%"
     }
 });
