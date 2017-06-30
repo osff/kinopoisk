@@ -45,7 +45,7 @@ class MovieListItem extends Component {
             alt={this.props.name} />
         </div>
         <div className={css(styles.movie_description)}>
-          <h2>{this.props.name} ({this.props.year})</h2>
+          <h2 className={css(styles.h2)}>{this.props.name} ({this.props.year})</h2>
           Actors: {actors} <br />
           Rating: <MovieListItemRatingDropdown value={this.props.rating} />
         </div>
@@ -119,15 +119,29 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         width: "80vw",
-        margin: "1em auto"
+        margin: "1em auto",
+        '@media (max-width: 600px)': {
+          width: "100%",
+          margin: "2em 0",
+        },
     },
 
     movie_description: {
         paddingLeft: '2em',
-        width: "50%"
+        width: "50%",
     },
 
     movie_image: {
-      height: "50vh"
-    }
+      maxHeight: "20em",
+      '@media (max-width: 600px)': {
+          maxWidth: "5em",
+      },
+    },
+
+    h2: {
+      '@media (max-width: 600px)': {
+        margin: "0 0 .5em",
+        fontSize: "1.2em",
+      },
+    },
 });
