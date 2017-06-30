@@ -7,18 +7,16 @@ import './App.css';
 class MovieListItemRatingDropdown extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: this.props.value};
-
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.props.onRatingChange(parseInt(event.target.value));
   }
 
   render() {
     return (
-      <select value={this.state.value} onChange={this.handleChange}>
+      <select value={this.props.value} onChange={this.handleChange}>
        <option value="1">1</option>
        <option value="2">2</option>
        <option value="3">3</option>
@@ -30,15 +28,28 @@ class MovieListItemRatingDropdown extends Component {
 }
 
 MovieListItemRatingDropdown.propTypes = {
-  value: PropTypes.number
+  value: PropTypes.number,
 };
 
 
 class MovieListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {rating: this.props.rating};
+    this.handleRatingChange = this.handleRatingChange.bind(this);
+  }
+
+  handleRatingChange(rating) {
+    this.setState({rating});
+  }
+
   render() {
     const actors = this.props.actors.join(", ");
+    const listStyles = this.state.rating < 5 ?
+                        styles.movie_wrapper :
+                        [styles.movie_wrapper, styles.yellow];
     return (
-      <div className={css(styles.movie_wrapper)}>
+      <div className={css(listStyles)}>
         <div>
           <img className={css(styles.movie_image)}
             src={this.props.image}
@@ -47,7 +58,9 @@ class MovieListItem extends Component {
         <div className={css(styles.movie_description)}>
           <h2 className={css(styles.h2)}>{this.props.name} ({this.props.year})</h2>
           Actors: {actors} <br />
-          Rating: <MovieListItemRatingDropdown value={this.props.rating} />
+        Rating: <MovieListItemRatingDropdown
+                  value={this.state.rating}
+                  onRatingChange={this.handleRatingChange} />
         </div>
 
       </div>
@@ -143,5 +156,9 @@ const styles = StyleSheet.create({
         margin: "0 0 .5em",
         fontSize: "1.2em",
       },
+    },
+
+    yellow: {
+      backgroundColor: "yellow",
     },
 });
