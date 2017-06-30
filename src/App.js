@@ -39,7 +39,7 @@ class MovieListItem extends Component {
             alt={this.props.name} />
         </div>
         <div className={css(styles.movie_description)}>
-          <h1>{this.props.name} ({this.props.year})</h1>
+          <h2>{this.props.name} ({this.props.year})</h2>
           Actors: {actors} <br />
           Rating: <MovieListItemRatingDropdown value={this.props.rating} />
         </div>
@@ -102,11 +102,11 @@ const styles = StyleSheet.create({
     },
 
     movie_description: {
-        padding: '1em 0 0 2em',
+        paddingLeft: '2em',
         width: "50%"
     },
 
     movie_image: {
-      width: "70%"
+      height: "50vh"
     }
 });
