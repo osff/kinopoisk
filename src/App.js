@@ -4,6 +4,25 @@ import PropTypes from 'prop-types';
 import logo from './logo.svg';
 import './App.css';
 
+
+class SaveButton extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.props.onClick();
+  }
+
+  render() {
+    return (
+      <input type="button" value="Save" onClick={this.handleClick} />
+    );
+  }
+}
+
+
 class MovieListItemRatingDropdown extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +59,7 @@ class MovieListItem extends Component {
   }
 
   handleRatingChange(rating) {
+    this.props.onRatingChange(parseInt(this.props.id), rating);
     this.setState({rating});
   }
 
@@ -58,9 +78,9 @@ class MovieListItem extends Component {
         <div className={css(styles.movie_description)}>
           <h2 className={css(styles.h2)}>{this.props.name} ({this.props.year})</h2>
           Actors: {actors} <br />
-        Rating: <MovieListItemRatingDropdown
-                  value={this.state.rating}
-                  onRatingChange={this.handleRatingChange} />
+          Rating: <MovieListItemRatingDropdown
+                    value={this.state.rating}
+                    onRatingChange={this.handleRatingChange} />
         </div>
 
       </div>
@@ -69,6 +89,7 @@ class MovieListItem extends Component {
 }
 
 MovieListItem.propTypes = {
+  id: PropTypes.number,
   actors: PropTypes.array,
   image: PropTypes.string,
   name: PropTypes.string,
@@ -78,22 +99,63 @@ MovieListItem.propTypes = {
 
 
 class MovieList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {ratingChangeHub: []};
+    this.handleRatingChange = this.handleRatingChange.bind(this);
+    this.handleSaveClick = this.handleSaveClick.bind(this);
+  }
+
+  handleRatingChange(id, rating) {
+    let ratingChangeHub = this.state.ratingChangeHub.slice();
+    let foundExisted = false;
+
+    ratingChangeHub.some((ratingChangeItem) => {
+      if (ratingChangeItem['id'] === id) {
+        ratingChangeItem['rating'] = rating;
+        foundExisted = true;
+        return true;
+      }
+      return false;
+    });
+    if (! foundExisted) {
+      ratingChangeHub.push({
+        'id': id,
+        'rating': rating
+      });
+    }
+    this.setState({
+      ratingChangeHub: ratingChangeHub
+    });
+  }
+
+  handleSaveClick() {
+    alert(JSON.stringify(this.state.ratingChangeHub));
+  }
+
   render() {
     const moviesListItems = this.props.movies.map((movie) =>
       <MovieListItem
         key={movie.id}
+        id={movie.id}
         image={movie.image}
         name={movie.name}
         year={movie.year}
         actors={movie.actors}
         rating={movie.rating}
+        onRatingChange={this.handleRatingChange}
       />
     );
     return (
-      <div className="movie_list">
-        {moviesListItems}
+      <div>
+        <div className="movie_list">
+          {moviesListItems}
+        </div>
+        <div>
+          {<SaveButton onClick={this.handleSaveClick} />}
+        </div>
       </div>
-    );
+  );
   }
 }
 
