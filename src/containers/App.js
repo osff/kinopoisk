@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import logo from '../logo.svg';
 import '../App.css';
 import SaveButton from '../components/SaveButton'
 import MovieList from '../components/MovieList'
+import * as MovieActions from '../actions'
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: [
-        { id: 1, image: "https://st.kp.yandex.net/images/film_iphone/iphone360_342.jpg", year: "1994", name: "Pulp fiction", actors: ['John Travolta', 'Samuel L. Jackson',], rating: 5 },
-        { id: 2, image: "https://st.kp.yandex.net/images/film_iphone/iphone360_326.jpg", year: "1994", name: "The Shawshank Redemption", actors: ['Tim Robbins', 'Morgan Freeman',], rating: 4 },
-        { id: 3, image: "https://st.kp.yandex.net/images/film_iphone/iphone360_435.jpg", year: "1999", name: "The Green Mile", actors: ['Tom Henks', 'David Mors',], rating: 3 },
-        { id: 4, image: "https://st.kp.yandex.net/images/film_iphone/iphone360_448.jpg", year: "1994", name: "Forrest Gump", actors: ['Tom Henks', 'Robin Rite',], rating: 2 },
-        { id: 5, image: "https://st.kp.yandex.net/images/film_iphone/iphone360_329.jpg", year: "1993", name: "Schindler's List", actors: ['Liam Nisson', 'Ben Ringslie',], rating: 1 },
-      ],
-      updatedRating: []
-    };
+    this.state = {updatedRating: []};
     this.handleRatingChange = this.handleRatingChange.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
   }
@@ -44,8 +38,8 @@ class App extends Component {
   }
 
   handleRatingChange(data) {
+    this.props.actions.changeRating(data);
     this.setState({
-      data: this._updateRatingInArrayOfMovies(this.state.data, data),
       updatedRating: this._updateRatingInArrayOfMovies(this.state.updatedRating, data),
     });
   }
@@ -63,7 +57,7 @@ class App extends Component {
         </div>
         <div>
           <MovieList
-            movies={this.state.data}
+            movies={this.props.movies}
             onRatingChange={this.handleRatingChange}
           />
         </div>
@@ -71,9 +65,24 @@ class App extends Component {
           {<SaveButton onClick={this.handleSaveClick} />}
         </div>
       </div>
-    );
+    )
   }
 }
 
+App.PropTypes = {
+  movies: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+}
 
-export default App;
+const mapStateToProps = state => ({
+  movies: state.movies.data
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(MovieActions, dispatch)
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
