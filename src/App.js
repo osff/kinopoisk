@@ -5,22 +5,13 @@ import logo from './logo.svg';
 import './App.css';
 
 
-class SaveButton extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
+const SaveButton = (props) => (
+  <input type="button" value="Save" onClick={props.onClick} />
+)
 
-  handleClick() {
-    this.props.onClick();
-  }
-
-  render() {
-    return (
-      <input type="button" value="Save" onClick={this.handleClick} />
-    );
-  }
-}
+SaveButton.propTypes = {
+  onClick: PropTypes.func
+};
 
 
 class MovieListItemRatingDropdown extends Component {
@@ -51,33 +42,34 @@ class MovieListItemRatingDropdown extends Component {
 
 MovieListItemRatingDropdown.propTypes = {
   value: PropTypes.number,
+  onRatingChange: PropTypes.func
 };
 
 
-class MovieListItem extends Component {
-  render() {
-    const actors = this.props.actors.join(", ");
-    const listStyles = this.props.rating < 5 ?
-                        styles.movie_wrapper :
-                        [styles.movie_wrapper, styles.yellow];
-    return (
-      <div className={css(listStyles)}>
-        <div>
-          <img className={css(styles.movie_image)}
-            src={this.props.image}
-            alt={this.props.name} />
-        </div>
-        <div className={css(styles.movie_description)}>
-          <h2 className={css(styles.h2)}>{this.props.name} ({this.props.year})</h2>
-          Actors: {actors} <br />
-          Rating: <MovieListItemRatingDropdown
-                    id={this.props.id}
-                    value={this.props.rating}
-                    onRatingChange={this.props.onRatingChange} />
-        </div>
+const MovieListItem = (props) => {
+
+  const actors = props.actors.join(", ");
+  const listStyles = props.rating < 5 ?
+                      styles.movie_wrapper :
+                      [styles.movie_wrapper, styles.yellow];
+  return (
+    <div className={css(listStyles)}>
+      <div>
+        <img className={css(styles.movie_image)}
+          src={props.image}
+          alt={props.name} />
       </div>
-    );
-  }
+      <div className={css(styles.movie_description)}>
+        <h2 className={css(styles.h2)}>{props.name} ({props.year})</h2>
+        Actors: {actors} <br />
+        Rating: <MovieListItemRatingDropdown
+                  id={props.id}
+                  value={props.rating}
+                  onRatingChange={props.onRatingChange} />
+      </div>
+    </div>
+  );
+
 }
 
 MovieListItem.propTypes = {
@@ -87,33 +79,33 @@ MovieListItem.propTypes = {
   name: PropTypes.string,
   year: PropTypes.string,
   rating: PropTypes.number,
+  onRatingChange: PropTypes.func
 };
 
 
-class MovieList extends Component {
-  render() {
-    const moviesListItems = this.props.movies.map((movie) =>
-      <MovieListItem
-        key={movie.id}
-        id={movie.id}
-        image={movie.image}
-        name={movie.name}
-        year={movie.year}
-        actors={movie.actors}
-        rating={movie.rating}
-        onRatingChange={this.props.onRatingChange}
-      />
-    );
-    return (
-        <div className="movie_list">
-          {moviesListItems}
-        </div>
-    );
-  }
+const MovieList = (props) => {
+  const moviesListItems = props.movies.map((movie) =>
+    <MovieListItem
+      key={movie.id}
+      id={movie.id}
+      image={movie.image}
+      name={movie.name}
+      year={movie.year}
+      actors={movie.actors}
+      rating={movie.rating}
+      onRatingChange={props.onRatingChange}
+    />
+  );
+  return (
+      <div className="movie_list">
+        {moviesListItems}
+      </div>
+  );
 }
 
 MovieList.propTypes = {
-  movies: PropTypes.array
+  movies: PropTypes.array,
+  onRatingChange: PropTypes.func
 };
 
 
