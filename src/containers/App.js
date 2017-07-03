@@ -16,8 +16,7 @@ class App extends Component {
         { id: 4, image: "https://st.kp.yandex.net/images/film_iphone/iphone360_448.jpg", year: "1994", name: "Forrest Gump", actors: ['Tom Henks', 'Robin Rite',], rating: 2 },
         { id: 5, image: "https://st.kp.yandex.net/images/film_iphone/iphone360_329.jpg", year: "1993", name: "Schindler's List", actors: ['Liam Nisson', 'Ben Ringslie',], rating: 1 },
       ],
-      updatedRating: [],
-      rating: this.props.rating,
+      updatedRating: []
     };
     this.handleRatingChange = this.handleRatingChange.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
