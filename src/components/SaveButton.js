@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SaveButton = (props) => (
-  <input type="button" value="Save" onClick={props.onClick} />
+  <div style={{textAlign: "center"}}>
+    <input type="button" value="Save" onClick={props.onClick} />
+  </div>
 )
 
 SaveButton.propTypes = {

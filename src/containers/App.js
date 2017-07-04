@@ -4,9 +4,11 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import logo from '../logo.svg';
 import '../App.css';
+import '../index.css';
 import SaveButton from '../components/SaveButton'
-import MovieList from '../components/MovieList'
-import * as MovieActions from '../actions'
+import FilteredMovieList from '../containers/FilteredMovieList'
+import FilteredPanel from '../containers/FilteredPanel'
+import { changeRating } from '../actions'
 
 class App extends Component {
   constructor(props) {
@@ -14,6 +16,7 @@ class App extends Component {
     this.state = {updatedRating: []};
     this.handleRatingChange = this.handleRatingChange.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
+    this.onFilterChange = this.onFilterChange.bind(this);
   }
 
   _updateRatingInArrayOfMovies(arr, data) {
@@ -38,7 +41,7 @@ class App extends Component {
   }
 
   handleRatingChange(data) {
-    this.props.actions.changeRating(data);
+    this.props.changeRating(data);
     this.setState({
       updatedRating: this._updateRatingInArrayOfMovies(this.state.updatedRating, data),
     });
@@ -48,21 +51,22 @@ class App extends Component {
     alert(JSON.stringify(this.state.updatedRating));
   }
 
+  onFilterChange(value) {
+    alert(value);
+  }
+
   render() {
+    const filterBy = Object.keys(this.props.movies[0]);
     return (
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to Kinopoisk</h2>
         </div>
-        <div>
-          <MovieList
-            movies={this.props.movies}
-            onRatingChange={this.handleRatingChange}
-          />
-        </div>
-        <div>
-          {<SaveButton onClick={this.handleSaveClick} />}
+        <div style={styles.app_body}>
+          <FilteredPanel items={filterBy} />
+          <FilteredMovieList onRatingChange={this.handleRatingChange} />
+          <SaveButton onClick={this.handleSaveClick} />
         </div>
       </div>
     )
@@ -75,14 +79,21 @@ App.PropTypes = {
 }
 
 const mapStateToProps = state => ({
-  movies: state.movies.data
+  movies: state.moviesReducer
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(MovieActions, dispatch)
-})
+const mapDispatchToProps = {
+  changeRating: changeRating
+}
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(App);
+
+const styles = {
+  app_body: {
+    width: "80%",
+    margin: "0 auto"
+  }
+}

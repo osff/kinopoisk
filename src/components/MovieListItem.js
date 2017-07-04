@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     movie_wrapper: {
         display: 'flex',
         justifyContent: 'center',
-        width: "80vw",
+        width: "100%",
         margin: "1em auto",
         '@media (max-width: 600px)': {
           width: "100%",
