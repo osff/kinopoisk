@@ -56,7 +56,7 @@ class App extends Component {
   }
 
   render() {
-    const filterBy = Object.keys(this.props.movies[0]);
+    // const filterBy = Object.keys(this.props.movies[0]);
     return (
       <div className="App">
         <div className="App-header">
@@ -64,7 +64,7 @@ class App extends Component {
           <h2>Welcome to Kinopoisk</h2>
         </div>
         <div style={styles.app_body}>
-          <FilteredPanel items={filterBy} />
+          <FilteredPanel />
           <FilteredMovieList onRatingChange={this.handleRatingChange} />
           <SaveButton onClick={this.handleSaveClick} />
         </div>
