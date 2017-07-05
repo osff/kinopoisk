@@ -10,7 +10,7 @@ export default class MovieListItemRatingDropdown extends Component {
   handleChange(event) {
     this.props.onRatingChange({
       'id': this.props.id,
-      'rating': parseInt(event.target.value)
+      'rating': parseInt(event.target.value, 10)
     });
   }
 

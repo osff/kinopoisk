@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import logo from '../logo.svg';
-import '../App.css';
-import '../index.css';
+import logo from '../logo.svg'
+import '../App.css'
+import '../index.css'
 import SaveButton from '../components/SaveButton'
 import ConnectedMovieList from '../containers/ConnectedMovieList'
 import ConnectedFilterPanel from '../containers/ConnectedFilterPanel'
