@@ -1,7 +1,11 @@
 import * as types from '../constants/ActionTypes'
-import { initialState } from './index'
 
-export default function sortingReducer(state = initialState.sorting, action) {
+const initialState = {
+  sortBy: "id",
+  sortOrder: types.SORT_ASC
+}
+
+export default function sortingReducer(state = initialState, action) {
   switch (action.type) {
     case types.SORT_BY_CHANGE:
       return Object.assign({}, state, {...state, sortBy: action.sortBy});

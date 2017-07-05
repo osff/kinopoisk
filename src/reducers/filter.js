@@ -1,7 +1,11 @@
 import * as types from '../constants/ActionTypes'
-import { initialState } from './index'
 
-export default function filterReducer(state = initialState.filtering, action) {
+const initialState = {
+  search: "",
+  filterBy: "name"
+}
+
+export default function filterReducer(state = initialState, action) {
   switch (action.type) {
     case types.FILTER_BY_CHANGE:
       return Object.assign({}, state, {...state, filterBy: action.filterBy});
