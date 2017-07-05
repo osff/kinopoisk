@@ -1,6 +1,8 @@
 import { combineReducers} from 'redux'
+import { SORT_ASC } from '../constants/ActionTypes'
 import moviesReducer from './movies'
 import filterReducer from './filter'
+import sortingReducer from './sorting'
 
 export const initialState = {
   data: [
@@ -15,14 +17,15 @@ export const initialState = {
     filterBy: "name"
   },
   sorting: {
-    sortBy: "",
-    sortOrder: ""
+    sortBy: "id",
+    sortOrder: SORT_ASC
   }
 };
 
 const rootReducer = combineReducers({
   moviesReducer,
-  filterReducer
+  filterReducer,
+  sortingReducer
 });
 
 export default rootReducer;

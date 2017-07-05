@@ -1,3 +1,7 @@
 export const CHANGE_RATING = 'CHANGE_RATING';
 export const FILTER_BY_CHANGE = 'FILTER_BY_CHANGE';
 export const FILTER_SEARCH_CHANGE = 'FILTER_SEARCH_CHANGE';
+export const SORT_BY_CHANGE = 'SORT_BY_CHANGE';
+export const SORT_CHANGE = 'SORT_CHANGE';
+export const SORT_ASC = 'SORT_ASC';
+export const SORT_DESC = 'SORT_DESC';

@@ -19,6 +19,7 @@ export default class FilterPanel extends Component {
   render() {
     return (
       <div style={styles.filter_panel}>
+        <h5>Filter panel</h5>
         <select value={this.props.filtering.filterBy} onChange={this.handleByChange}>
           {this.props.items.map(item => (
             <option key={item} value={item}> {item} </option>
@@ -36,7 +37,6 @@ FilterPanel.propTypes = {
 
 const styles = {
   filter_panel: {
-    textAlign: "center",
-    margin: "1em"
+    textAlign: "center"
   }
 }

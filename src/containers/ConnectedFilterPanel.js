@@ -16,9 +16,9 @@ const mapDispatchToProps = {
   onFilterByChange: filterByChange
 }
 
-const FilteredPanel = connect(
+const ConnectedFilterPanel = connect(
   mapStateToProps,
   mapDispatchToProps
 )(FilterPanel)
 
-export default FilteredPanel;
+export default ConnectedFilterPanel;

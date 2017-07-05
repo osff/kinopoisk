@@ -6,8 +6,9 @@ import logo from '../logo.svg';
 import '../App.css';
 import '../index.css';
 import SaveButton from '../components/SaveButton'
-import FilteredMovieList from '../containers/FilteredMovieList'
-import FilteredPanel from '../containers/FilteredPanel'
+import ConnectedMovieList from '../containers/ConnectedMovieList'
+import ConnectedFilterPanel from '../containers/ConnectedFilterPanel'
+import ConnectedSortPanel from '../containers/ConnectedSortPanel'
 import { changeRating } from '../actions'
 
 class App extends Component {
@@ -56,7 +57,6 @@ class App extends Component {
   }
 
   render() {
-    // const filterBy = Object.keys(this.props.movies[0]);
     return (
       <div className="App">
         <div className="App-header">
@@ -64,8 +64,11 @@ class App extends Component {
           <h2>Welcome to Kinopoisk</h2>
         </div>
         <div style={styles.app_body}>
-          <FilteredPanel />
-          <FilteredMovieList onRatingChange={this.handleRatingChange} />
+          <div style={styles.filter_sort_panels}>
+            <ConnectedFilterPanel />
+            <ConnectedSortPanel />
+          </div>
+          <ConnectedMovieList onRatingChange={this.handleRatingChange} />
           <SaveButton onClick={this.handleSaveClick} />
         </div>
       </div>
@@ -95,5 +98,9 @@ const styles = {
   app_body: {
     width: "80%",
     margin: "0 auto"
+  },
+  filter_sort_panels: {
+    display: "flex",
+    justifyContent: "center"
   }
 }
